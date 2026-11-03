@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoSync AI • Deepfake Detector & Multimodal Forensic Intelligence</title>
+    <meta name="description" content="Aesthetic, minimal deepfake video detector powered by ChronoSync AI Boundary-Aware Temporal Forgery Detection multimodal neural networks.">
+    
+    <!-- Google Fonts: Trending Editorial & Sans Combinations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="theme-warm">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Top Navigation Bar -->
+    <header class="masthead">
+        <div class="container nav-container">
+            <div class="brand">
+                <span class="brand-sparkle">✦</span>
+                <span class="brand-name">CHRONOSYNC AI</span>
+                <span class="brand-pill">v2.4 Neural</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#detector-studio" class="nav-item active">Detector</a>
+                <a href="#curated-samples" class="nav-item">Benchmark Gallery</a>
+                <a href="#methodology" class="nav-item">Architecture</a>
+            </nav>
+            <div class="nav-actions">
+                <div class="model-badge">
+                    <span class="status-dot"></span>
+                    <span>ChronoSync Active</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-tag-wrapper">
+                <span class="aesthetic-tag">
+                    <i data-lucide="shield-check" class="tag-icon"></i>
+                    Audio-Visual Temporal Forensic Suite
+                </span>
+            </div>
+            <h1 class="hero-title">
+                Deepfake <span class="italic-serif">Detector</span>
+            </h1>
+            <p class="hero-subtitle">
+                Inspect spatial facial anomalies, synthetic voice synthesis, and microsecond lip-sync boundary mismatches with trained dual-stream neural intelligence.
+            </p>
+        </section>
+
+        <!-- Studio & Upload Section -->
+        <section id="detector-studio" class="studio-section">
+            <div class="studio-card">
+                <!-- Dropzone -->
+                <div id="dropzone" class="dropzone-area">
+                    <input type="file" id="video-file-input" accept="video/mp4,video/quicktime,video/x-matroska,video/webm" class="file-input-hidden">
+                    <div class="dropzone-inner">
+                        <div class="dropzone-icon-orbit">
+                            <i data-lucide="video" class="dropzone-icon"></i>
+                        </div>
+                        <h3 class="dropzone-heading">Drop your video here or <span class="browse-link">browse</span></h3>
+                        <p class="dropzone-caption">Supports MP4, MOV, WEBM & AVI • Up to 250MB • Audio & Video analyzed</p>
+                        
+                        <div class="format-chips">
+                            <span class="chip">25 FPS Normalized</span>
+                            <span class="chip">Log-Mel 16kHz</span>
+                            <span class="chip">C3D Spatial Map</span>
+                            <span class="chip">Temporal BM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected File Drawer (Hidden by default) -->
+                <div id="file-preview-card" class="file-preview-card hidden">
+                    <div class="file-info-col">
+                        <div class="file-icon-box">
+                            <i data-lucide="film" class="film-icon"></i>
+                        </div>
+                        <div class="file-meta">
+                            <span id="preview-filename" class="file-name-text">video.mp4</span>
+                            <span id="preview-filesize" class="file-size-text">0.0 MB</span>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <button id="cancel-upload-btn" class="btn btn-secondary">
+                            <i data-lucide="x"></i> Change
+                        </button>
+                        <button id="start-analysis-btn" class="btn btn-primary">
+                            <i data-lucide="scan"></i> Run Forensic Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scanning Progress Animation (Hidden by default) -->
+                <div id="analysis-progress-card" class="progress-card hidden">
+                    <div class="radar-scanner">
+                        <div class="radar-circle circle-1"></div>
+                        <div class="radar-circle circle-2"></div>
+                        <div class="radar-sweep"></div>
+                        <i data-lucide="cpu" class="radar-center-icon"></i>
+                    </div>
+                    <div class="progress-text-block">
+                        <h4 id="progress-status-title" class="progress-title">Decomposing Video Frames...</h4>
+                        <p id="progress-status-desc" class="progress-desc">Extracting RGB sequence & computing 64-band Log-Mel Acoustic Spectrogram</p>
+                        <div class="progress-bar-track">
+                            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                        </div>
+                        <div class="progress-steps-list">
+                            <span class="step-badge active" id="step-1">1. Frame Ingestion</span>
+                            <span class="step-badge" id="step-2">2. Audio Spectrogram</span>
+                            <span class="step-badge" id="step-3">3. ChronoSync Neural Pass</span>
+                            <span class="step-badge" id="step-4">4. Temporal Synthesis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forensic Results Showcase (Bento Grid) -->
+        <section id="results-section" class="results-section hidden">
+            <!-- Section Header & Quick Bar -->
+            <div class="results-header">
+                <div>
+                    <span class="aesthetic-pill">Forensic Inspection Report</span>
+                    <h2 class="results-main-title">Multi-Modal <span class="italic-serif">Analysis</span></h2>
+                </div>
+                <div class="results-actions">
+                    <button id="export-report-btn" class="btn btn-secondary">
+                        <i data-lucide="download"></i> Export Card
+                    </button>
+                    <button id="reanalyze-btn" class="btn btn-secondary">
+                        <i data-lucide="rotate-ccw"></i> Re-scan
+                    </button>
+                    <button id="reset-btn" class="btn btn-primary">
+                        <i data-lucide="plus"></i> New Video
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bento Top Bar: Verdict & Key Scores -->
+            <div class="bento-row verdict-banner-row">
+                <div class="bento-card verdict-card" id="verdict-banner-card">
+                    <div class="verdict-left">
+                        <div class="verdict-badge-box">
+                            <span id="verdict-badge" class="verdict-pill-badge authentic">
+                                <span class="pulse-indicator"></span>
+                                <span id="verdict-text">AUTHENTIC VIDEO</span>
+                            </span>
+                        </div>
+                        <h3 class="verdict-headline" id="verdict-headline">No Forensic Anomalies Detected</h3>
+                        <p class="verdict-summary" id="verdict-summary">
+                            Visual facial movements and acoustic phonemes remain temporally coherent with zero deepfake boundary proposals exceeding threshold.
+                        </p>
+                    </div>
+
+                    <div class="verdict-gauge-wrapper">
+                        <div class="circular-gauge">
+                            <svg class="gauge-svg" viewBox="0 0 120 120">
+                                <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+                                <circle id="gauge-bar" class="gauge-fill" cx="60" cy="60" r="50"></circle>
+                            </svg>
+                            <div class="gauge-content">
+                                <span id="gauge-percentage" class="gauge-score">98.5%</span>
+                                <span id="gauge-label" class="gauge-subtitle">Confidence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Meta Stats Bento -->
+                <div class="bento-card meta-stats-card">
+                    <div class="stat-item">
+                        <span class="stat-label"><i data-lucide="clock" class="stat-icon"></i> Runtime</span>
+                        <span class="stat-value" id="meta-duration">0.00s</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-label"><i data-lucide="layers" class="stat-icon"></i> Analyzed Frames</span>
+                        <span class="stat-value" id="meta-frames">0</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-label"><i data-lucide="zap" class="stat-icon"></i> Latency</span>
+                        <span class="stat-value" id="meta-latency">0.00s</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Middle Row: Synchronized Video Player & Interactive Timeline -->
+            <div class="bento-row player-timeline-row">
+                <!-- Video Player Card -->
+                <div class="bento-card video-player-card">
+                    <div class="card-title-bar">
+                        <div class="title-with-icon">
+                            <i data-lucide="play-circle" class="sub-icon"></i>
+                            <h4>Synchronized Media Viewport</h4>
+                        </div>
+                        <span id="player-time-display" class="time-stamp-chip">00:00.00</span>
+                    </div>
+                    <div class="video-container">
+                        <video id="inspection-video" playsinline preload="metadata">
+                            Your browser does not support HTML5 video.
+                        </video>
+                        <div class="video-overlay-badge" id="video-overlay-badge">
+                            <span class="indicator-dot"></span>
+                            <span id="video-overlay-text">Scrubbing Mode</span>
+                        </div>
+                    </div>
+                    <div class="player-controls">
+                        <button id="play-pause-btn" class="control-btn" title="Play/Pause">
+                            <i data-lucide="play" id="play-icon"></i>
+                        </button>
+                        <input type="range" id="video-seek-slider" min="0" max="100" value="0" step="0.1" class="seek-slider">
+                        <button id="mute-btn" class="control-btn" title="Mute/Unmute">
+                            <i data-lucide="volume-2" id="volume-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Temporal Forgery Heatmap Timeline Card -->
+                <div class="bento-card timeline-card">
+                    <div class="card-title-bar">
+                        <div class="title-with-icon">
+                            <i data-lucide="activity" class="sub-icon"></i>
+                            <h4>Temporal Anomaly Heatmap</h4>
+                        </div>
+                        <span class="aesthetic-tip">Click curve to seek video</span>
+                    </div>
+                    <p class="timeline-explainer">
+                        Real-time probability curve plotted across duration. Red peaks identify manipulated segments; green valleys indicate natural coherence.
+                    </p>
+
+                    <div class="timeline-canvas-container">
+                        <canvas id="timeline-canvas"></canvas>
+                        <div id="timeline-scrubber" class="timeline-scrubber"></div>
+                    </div>
+
+                    <div class="timeline-legend">
+                        <div class="legend-item"><span class="legend-dot visual"></span> Visual Splicing Risk</div>
+                        <div class="legend-item"><span class="legend-dot audio"></span> Audio Spectral Forgery</div>
+                        <div class="legend-item"><span class="legend-dot boundary"></span> Boundary Matching Proposal</div>
+                    </div>
+
+                    <!-- Detected Slices List -->
+                    <div class="proposals-block">
+                        <h5 class="proposals-title">Identified Temporal Boundaries:</h5>
+                        <div id="proposals-container" class="proposals-container">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Bottom Row: 3 Modality Breakdown Cards -->
+            <div class="bento-row breakdown-row">
+                <!-- Modality 1: Visual Frame Classifier -->
+                <div class="bento-card modality-card">
+                    <div class="modality-header">
+                        <div class="modality-icon visual-icon-box">
+                            <i data-lucide="eye"></i>
+                        </div>
+                        <div>
+                            <h4>Visual Modality</h4>
+                            <span class="modality-sub">C3D Spatial-Temporal Convolution</span>
+                        </div>
+                    </div>
+                    <div class="modality-metric-box">
+                        <div class="mod-metric">
+                            <span class="mod-num" id="mod-v-max">0.00%</span>
+                            <span class="mod-lbl">Peak Forgery Score</span>
+                        </div>
+                        <div class="mod-metric">
+                            <span class="mod-num" id="mod-v-mean">0.00%</span>
+                            <span class="mod-lbl">Mean Trajectory</span>
+                        </div>
+                    </div>
+                    <p class="modality-desc">
+                        Monitors face deformation, warping boundaries, and micro-expression blur along successive video frames.
+                    </p>
+                </div>
+
+                <!-- Modality 2: Audio Spectrogram Classifier -->
+                <div class="bento-card modality-card">
+                    <div class="modality-header">
+                        <div class="modality-icon audio-icon-box">
+                            <i data-lucide="mic"></i>
+                        </div>
+                        <div>
+                            <h4>Audio Modality</h4>
+                            <span class="modality-sub">64-Channel Log-Mel CNN</span>
+                        </div>
+                    </div>
+                    <div class="modality-metric-box">
+                        <div class="mod-metric">
+                            <span class="mod-num" id="mod-a-max">0.00%</span>
+                            <span class="mod-lbl">Peak Spectral Anomaly</span>
+                        </div>
+                        <div class="mod-metric">
+                            <span class="mod-num" id="mod-a-mean">0.00%</span>
+                            <span class="mod-lbl">Mean Acoustic Risk</span>
+                        </div>
+                    </div>
+                    <p class="modality-desc">
+                        Scans vocal harmonics, synthetic phase vocoder artifacts, and voice cloning spectral irregularities.
+                    </p>
+                </div>
+
+                <!-- Modality 3: Boundary Matching Network -->
+                <div class="bento-card modality-card">
+                    <div class="modality-header">
+                        <div class="modality-icon fusion-icon-box">
+                            <i data-lucide="git-merge"></i>
+                        </div>
+                        <div>
+                            <h4>Boundary Matching</h4>
+                            <span class="modality-sub">Cross-Modal Temporal Attention</span>
+                        </div>
+                    </div>
+                    <div class="modality-metric-box">
+                        <div class="mod-metric">
+                            <span class="mod-num" id="mod-bm-max">0.00%</span>
+                            <span class="mod-lbl">Peak Boundary Match</span>
+                        </div>
+                        <div class="mod-metric">
+                            <span class="mod-num" id="mod-proposals-count">0</span>
+                            <span class="mod-lbl">Flagged Sequences</span>
+                        </div>
+                    </div>
+                    <p class="modality-desc">
+                        Correlates audio phoneme timing against lip articulatory motions to spot audio-visual desynchronization.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curated Benchmark Gallery (Pinterest Masonry Cards) -->
+        <section id="curated-samples" class="gallery-section">
+            <div class="gallery-header">
+                <div>
+                    <span class="aesthetic-pill">Curated Benchmark Library</span>
+                    <h2 class="gallery-title">Explore Sample <span class="italic-serif">Clips</span></h2>
+                    <p class="gallery-subtitle">
+                        Test verified authentic videos and synthetic lip-sync deepfakes directly with instant playback & neural insights.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Masonry Grid of Sample Cards -->
+            <div id="sample-cards-grid" class="sample-grid">
+                <!-- Dynamically populated from /api/samples -->
+            </div>
+        </section>
+
+        <!-- Technical Methodology / Architecture Brief -->
+        <section id="methodology" class="methodology-section">
+            <div class="bento-card methodology-card">
+                <div class="methodology-content">
+                    <span class="aesthetic-tag">Neural Architecture</span>
+                    <h3 class="methodology-heading">How BA-TFD Temporal Forgery Detection Operates</h3>
+                    <p class="methodology-text">
+                        Unlike conventional single-frame image classifiers that easily fail on compressed video, the Boundary-Aware Temporal Forgery Detector processes video and audio as synchronized continuous streams.
+                    </p>
+                    <div class="pipeline-grid">
+                        <div class="pipeline-card">
+                            <span class="pipeline-num">01</span>
+                            <h5>Dual Visual & Acoustic Embeddings</h5>
+                            <p>Continuous frames are processed through 3D spatiotemporal convolutions while audio is transformed into 64-band Log-Mel spectrograms at 16,000 Hz.</p>
+                        </div>
+                        <div class="pipeline-card">
+                            <span class="pipeline-num">02</span>
+                            <h5>Multimodal Cross-Attention</h5>
+                            <p>Phoneme audio features are fused with viseme facial movements to detect subtle millisecond lip-sync alterations and voice replacement.</p>
+                        </div>
+                        <div class="pipeline-card">
+                            <span class="pipeline-num">03</span>
+                            <h5>Temporal Boundary Proposal Map</h5>
+                            <p>The boundary matching module scans all combinations of start and duration anchors, precisely pinpointing which seconds of the clip were spliced.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="brand-sparkle">✦</span>
+                <span class="brand-name">CHRONOSYNC AI</span>
+                <span class="footer-copy">Deepfake Detection & Multimodal Temporal Analysis</span>
+            </div>
+            <div class="footer-notes">
+                <span>Designed for modern forensic precision • Built with PyTorch & HTML5</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core App Logic -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

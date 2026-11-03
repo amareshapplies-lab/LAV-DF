@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.cache/
+.mpl_cache/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Model Checkpoints & Large Weights (>100MB rejected by GitHub)
+ckpt/*
+!ckpt/.gitkeep
+*.ckpt
+*.pth
+*.pt
+*.bin
+*.h5
+
+# Datasets and Media Clips
+LAV-DF/
+test_data/video/*
+!test_data/video/.gitkeep
+test_data/deepfake/*
+!test_data/deepfake/.gitkeep
+
+# Output and Upload Artifacts
+uploads/*
+!uploads/.gitkeep
+output_videos/*
+!output_videos/.gitkeep
+output/
+lightning_logs/
+
+# Documents, Presentations & Academic Reports
+*.docx
+*.pptx
+report_assets/
+sample_cache.json
+build_all_presentations.py
+build_full_report.py
+build_phase1_report.py
+generate_report_assets.py
+test_omml.py
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
