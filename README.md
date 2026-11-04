@@ -6,6 +6,10 @@
 [![Interface](https://img.shields.io/badge/UI-Aesthetic_Editorial_Web_Studio-crimson.svg)](templates/index.html)
 [![License](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](LICENSE)
 
+<p align="center">
+  <img src="assets/dashboard_preview.png" alt="LAV-DF Forensic Intelligence Studio Dashboard" width="95%" />
+</p>
+
 An open-source multimodal audio-visual forensic intelligence framework engineered for **fine-grained temporal deepfake detection**, **facial manipulation identification**, and **sub-second boundary localization**. 
 
 Standard deepfake detectors typically issue a single binary classification score across an entire video. In contrast, this project implements **Boundary-Aware Temporal Forgery Detection (BA-TFD / BA-TFD+)**, concurrently inspecting subtle microsecond discrepancies between acoustic phonemes and visual visemes to output pinpoint temporal start (`t_start`) and end (`t_end`) boundaries alongside continuous frame-level tampering probabilities.
@@ -293,4 +297,71 @@ This repository is distributed under the [Creative Commons Attribution-NonCommer
 
 ## 💬 Contact & Academic Citation
 
-This codebase is made available as an anonymous, open-source research artifact for reproducible evaluation of multimodal deepfake boundary localization. If you utilize this framework or benchmark configurations in your research, please cite the underlying Boundary-Aware Temporal Forgery Detection methodology.
+Developed and maintained by **Amaresh D R** as an open-source multimodal research framework for fine-grained deepfake boundary localization and forensic evaluation.
+
+---
+
+## 🛠️ Original Architecture vs. Custom Contributions
+
+To clearly differentiate the foundational research from the implementation engineering built in this repository:
+
+### 1. Foundational Baseline (Cai et al.)
+- **Base Methodology**: Formulation of the Boundary-Aware Temporal Forgery Detection (BA-TFD / BA-TFD+) paradigm for audio-visual content-driven speech manipulation.
+- **Multitask Optimization**: Multimodal loss formulation combining frame-level binary cross-entropy, cross-modal audio-visual contrastive loss, and boundary proposal matching regression.
+- **LAV-DF Benchmark**: The ground-truth test annotations and temporal boundary verification protocol.
+
+### 2. Custom Contributions Built in this Repository (Amaresh D R)
+- **Interactive Forensic Studio Web UI (`app.py`, `templates/index.html`, `static/`)**: Designed and implemented an editorial dark-mode forensic web studio featuring real-time audio-visual timeline scrubbing, reactive multi-channel tampering meters (Visual, Audio Dubbing, Lip-Sync, Composite), candidate boundary proposal cards, and downloadable forensic verdict reports.
+- **Automated Forensic HUD Video Renderer (`generate_annotated_video.py`)**: Built a standalone OpenCV/FFmpeg compositing engine that stamps dynamic audio-visual risk scores, real-time bounding boxes, and timestamped temporal boundary highlights directly onto exported video frames.
+- **Benchmarking & Accuracy Verification Suite (`accuracy_analysis.py`, `test_real_dataset.py`, `evaluate.py`)**: Implemented evaluation harnesses calculating frame-level ROC-AUC, AP@IoU across various overlap thresholds (0.5 to 0.95), Average Recall (AR@100), and Soft-NMS proposal filtering.
+- **High-Throughput Feature Caching & Inference Pipeline (`precompute_cache.py`, `inference.py`)**: Optimized inference routines and precomputed demonstration caching allowing the forensic studio to launch and demonstrate instantaneous inspection without heavy GPU overhead.
+
+---
+
+## 📥 Model Checkpoint & Training Guide
+
+> [!IMPORTANT]
+> The full trained high-capacity model checkpoint (`ckpt/chronosync_ai.ckpt`, **~1.7 GB**) is excluded from this Git repository due to GitHub file size limits.
+
+### Option A: Launch the Web Studio Immediately (Precomputed Cache)
+The repository includes precomputed forensic telemetry in `sample_cache.json`. You can immediately launch and interact with the full Forensic Studio Web UI without downloading the 1.7 GB checkpoint:
+```bash
+python app.py
+```
+Navigate to `http://localhost:5000` to inspect pre-analyzed authentic and manipulated video samples.
+
+### Option B: Train from Scratch
+To train the BA-TFD+ model from scratch on your own dataset or the full LAV-DF corpus:
+```bash
+python train.py --config config/chronosync_ai.toml
+```
+Trained weights will automatically be saved to `ckpt/chronosync_ai.ckpt`.
+
+### Option C: Download External Weights
+If downloading the official checkpoint from external institutional storage (Google Drive / Hugging Face):
+1. Create the checkpoint directory: `mkdir -p ckpt`
+2. Place the weights at `ckpt/chronosync_ai.ckpt`
+3. Run batch evaluation: `python evaluate.py --config config/chronosync_ai.toml --checkpoint ckpt/chronosync_ai.ckpt`
+
+---
+
+## 📚 Academic Citation & Acknowledgments
+
+If you utilize this framework or benchmark configurations in your research, please cite the foundational BA-TFD papers by Cai et al.:
+
+```bibtex
+@inproceedings{cai2022do,
+  title={Do You Really Mean That? Content Driven Audio-Visual Deepfake Dataset and Multimodal Method for Temporal Forgery Localization},
+  author={Cai, Zhixi and Ghosh, Shreya and Dhall, Abhinav and Gedeon, Tom and Stefanov, Kalin and Hayat, Munawar},
+  booktitle={International Conference on Digital Image Computing: Techniques and Applications (DICTA)},
+  pages={1--8},
+  year={2022}
+}
+
+@article{cai2023glitch,
+  title={Glitch in the Matrix: A Large Scale Benchmark for Content Driven Audio-Visual Forgery Detection and Localization},
+  author={Cai, Zhixi and Stefanov, Kalin and Dhall, Abhinav and Hayat, Munawar},
+  journal={Computer Vision and Image Understanding / arXiv:2305.01979},
+  year={2023}
+}
+```
